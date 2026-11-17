@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import WidgetLayout from "@/components/common/WidgetLayout.astro";
 import { siteConfig } from "@/config";
@@ -53,18 +54,34 @@ function formatNumber(num: number): string {
 	return num.toLocaleString();
 }
 
-// 获取「最后活动」时间：取每篇文章 published 与 updated 中较新的那个，再从全站所有文章里取最大值。这样新发文章和修改老文章都会刷新该字段。
-const getActivityDate = (post: (typeof posts)[number]): Date => {
-	const { published, updated } = post.data;
-	if (updated && updated > published) return updated;
-	return published;
-};
+// 「最后活动」取文章、动态、项目里真实的最新日期。
+// 主题示例内容用 1970-01-01 ~ 1970-01-03 作为占位日期，需要跳过，否则会显示「一万多天前」。
+const isValidActivityDate = (date: Date | undefined | null): date is Date =>
+	!!date && !Number.isNaN(date.getTime()) && date.getUTCFullYear() > 1970;
 
-const lastActivityDate = posts.reduce<Date | null>((latest, post) => {
-	const current = getActivityDate(post);
-	if (!latest || current > latest) return current;
-	return latest;
-}, null);
+const activityDates: Date[] = [];
+
+for (const post of posts) {
+	if (isValidActivityDate(post.data.published)) activityDates.push(post.data.published);
+	if (isValidActivityDate(post.data.updated)) activityDates.push(post.data.updated);
+}
+
+const dynamicEntries = await getCollection("dynamic");
+for (const entry of dynamicEntries) {
+	if (isValidActivityDate(entry.data.published)) activityDates.push(entry.data.published);
+}
+
+const projectEntries = await getCollection("projects", ({ data }) =>
+	!import.meta.env.PROD || data.draft !== true,
+);
+for (const entry of projectEntries) {
+	if (isValidActivityDate(entry.data.published)) activityDates.push(entry.data.published);
+}
+
+const lastActivityDate = activityDates.reduce<Date | null>(
+	(latest, current) => (!latest || current > latest ? current : latest),
+	null,
+);
 
 const lastPostDate = lastActivityDate ? lastActivityDate.toISOString() : null;
 
@@ -156,9 +173,9 @@ const stats = [
     });
 
     // 更新最后活动时间
-    if (lastPostDate) {
+    if (lastPostDate && !Number.isNaN(new Date(lastPostDate).getTime())) {
       const lastPost = new Date(lastPostDate);
-      const timeSinceLastPost = Math.abs(today.getTime() - lastPost.getTime());
+      const timeSinceLastPost = Math.max(0, today.getTime() - lastPost.getTime());
       const daysSinceLastUpdate = Math.floor(timeSinceLastPost / (1000 * 60 * 60 * 24));
 
       const lastUpdateElements = document.querySelectorAll('[data-stat-id="last-update"]');
