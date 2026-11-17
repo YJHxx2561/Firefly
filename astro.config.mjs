@@ -14,7 +14,6 @@ import icon from "astro-icon";
 import { pluginLanguageLogo } from "ec-lang-logo"; /* Language Logo */
 import { pluginCollapsible } from "expressive-code-collapsible"; /* Collapsible */
 import { pluginLanguageBadge } from "expressive-code-language-badge"; /* Language Badge */
-import katex from "katex";
 import "katex/dist/contrib/mhchem.mjs"; // 加载 mhchem 扩展
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeCallouts from "rehype-callouts";
@@ -242,7 +241,7 @@ export default defineConfig({
 				if (pathname === "/dynamic/" && !siteConfig.pages.dynamic) {
 					return false;
 				}
-				if (pathname === "/gallery/" && !siteConfig.pages.gallery) {
+				if (pathname.startsWith("/gallery/") && !siteConfig.pages.gallery) {
 					return false;
 				}
 				if (pathname === "/friends/" && !siteConfig.pages.friends) {
@@ -302,7 +301,7 @@ export default defineConfig({
 				[remarkPlantuml, plantumlConfig],
 			],
 			rehypePlugins: [
-				[rehypeKatex, { katex }],
+				rehypeKatex,
 				[rehypeCallouts, { theme: siteConfig.post.rehypeCallouts.theme }],
 				rehypeSlug,
 				rehypeCodeGroup,
