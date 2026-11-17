@@ -34,5 +34,9 @@
   "public:assets/images/sponsor/wechat.png": "d5d5d5dad9d7dbd8cf",
   "public:assets/images/sponsor/alipay.png": "8ebbde91bedf93c0e0",
   "public:assets/images/ad/ad1.webp": "a1b8b68a8e918c8f93",
-  "src:content/projects/images/firefly.avif": "b5b0b3bcb6bbe0e0df"
+  "src:content/projects/images/firefly.avif": "b5b0b3bcb6bbe0e0df",
+  "src:assets/images/touxiang.png": "e03830e63a2daf405c",
+  "src:assets/music/cover/知更鸟-希望有羽毛和翅膀.webp": "7f5a7b5d4960654b5f",
+  "src:assets/music/cover/知更鸟-在银河中孤独摇摆.webp": "7f5a7b5d4960654b5f",
+  "src:assets/music/cover/知更鸟-使一颗心免于哀伤.webp": "7f5a795e4a61654b5f"
 }
