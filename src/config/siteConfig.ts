@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
 	subtitle: "YJH's Blog",
 
 	// 站点 URL
-	site_url: "https://blog.web.yjhup.com",
+	site_url: "https://blog.yjhup.com",
 
 	// 站点描述
 	description:
