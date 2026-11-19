@@ -1,31 +1,95 @@
-<!-- 
+<!--
 	你可以在这个文件中使用HTML内容自定义网站底部的footer
-	You can use html to customize the footer at the bottom of the website in this file. 
+	You can use html to customize the footer at the bottom of the website in this file.
 -->
+<style>
+	.icp-footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.55rem;
+		font-size: 0.8125rem;
+		line-height: 1.6;
+	}
+	.visit-stats {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+	.visit-stat {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.28rem 0.7rem;
+		border: 1px solid var(--line-color);
+		border-radius: 9999px;
+		background: color-mix(in oklch, var(--primary) 6%, transparent);
+		color: var(--content-meta);
+		transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+	}
+	.visit-stat:hover {
+		background: color-mix(in oklch, var(--primary) 13%, transparent);
+		border-color: color-mix(in oklch, var(--primary) 45%, transparent);
+		transform: translateY(-1px);
+	}
+	.visit-stat svg {
+		color: var(--primary);
+		flex: none;
+	}
+	.stat-num {
+		color: var(--primary);
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		margin-left: 0.1rem;
+	}
+	.icp-line {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		color: var(--content-meta);
+	}
+	.icp-line a {
+		color: var(--content-meta);
+		text-decoration: none;
+		border-bottom: 1px dashed color-mix(in oklch, var(--primary) 45%, transparent);
+		transition: color .2s ease, border-color .2s ease;
+	}
+	.icp-line a:hover {
+		color: var(--primary);
+		border-bottom-color: var(--primary);
+	}
+	.icp-sep {
+		color: var(--primary);
+		opacity: 0.6;
+	}
+</style>
 <footer class="icp-footer">
-    <!-- 访问统计（后端与 SunPanel 共用：stats.web.yjhup.com） -->
-    <div class="visit-stats">
-      <span class="visit-stat">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-        本页访问人次:<span id="page_pv" class="stat-num">—</span>
-      </span>
-      <span class="visit-stat">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" />
-        </svg>
-        本页访问人数:<span id="page_uv" class="stat-num">—</span>
-      </span>
-    </div>
-    <div>
-      <a href="https://icp.gov.moe/?keyword=20266651" target="_blank">
-        萌ICP备20266651号
-      </a>
-    </div>
-    <div class="icp-powered">Copyright © 2026 | Powered By <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a></div>
-  </footer>
+  <div class="visit-stats">
+    <span class="visit-stat">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+      本页访问人次:<span id="page_pv" class="stat-num">—</span>
+    </span>
+    <span class="visit-stat">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" />
+      </svg>
+      本页访问人数:<span id="page_uv" class="stat-num">—</span>
+    </span>
+  </div>
+  <div class="icp-line">
+    <a href="https://icp.gov.moe/?keyword=20262028" target="_blank" rel="noopener noreferrer">萌ICP备20262028号</a>
+    <span class="icp-sep" aria-hidden="true">·</span>
+    <span>Copyright © 2026</span>
+    <span class="icp-sep" aria-hidden="true">·</span>
+    Powered By <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a>
+  </div>
+</footer>
 
-  <script defer src="//stats.web.yjhup.com/js/index.min.js"></script>
+<script defer src="//stats.web.yjhup.com/js/index.min.js"></script>
