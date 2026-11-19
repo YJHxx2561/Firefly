@@ -11,6 +11,50 @@
 		font-size: 0.8125rem;
 		line-height: 1.6;
 	}
+	.site-uptime {
+		display: inline-flex;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.45rem;
+		padding: 0.34rem 0.85rem;
+		border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent);
+		border-radius: 9999px;
+		background: color-mix(in oklch, var(--primary) 8%, transparent);
+		color: var(--content-meta);
+		white-space: nowrap;
+		transition: background-color .2s ease, border-color .2s ease;
+	}
+	.site-uptime:hover {
+		background: color-mix(in oklch, var(--primary) 14%, transparent);
+		border-color: color-mix(in oklch, var(--primary) 50%, transparent);
+	}
+	.site-uptime svg {
+		color: var(--primary);
+		flex: none;
+	}
+	.uptime-label {
+		white-space: nowrap;
+	}
+	.uptime-value {
+		display: inline-flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.3rem;
+	}
+	.uptime-unit {
+		white-space: nowrap;
+	}
+	.uptime-num {
+		color: var(--primary);
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+	.uptime-sep {
+		color: var(--primary);
+		opacity: 0.45;
+	}
 	.visit-stats {
 		display: flex;
 		flex-wrap: wrap;
@@ -75,6 +119,22 @@
 	}
 </style>
 <footer class="icp-footer">
+  <div class="site-uptime" id="site-uptime">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+    <span class="uptime-label">本站已运行</span>
+    <span class="uptime-value">
+      <span class="uptime-unit"><span class="uptime-num" id="uptime-days">0</span> 天</span>
+      <span class="uptime-sep" aria-hidden="true">·</span>
+      <span class="uptime-unit"><span class="uptime-num" id="uptime-hours">00</span> 时</span>
+      <span class="uptime-sep" aria-hidden="true">·</span>
+      <span class="uptime-unit"><span class="uptime-num" id="uptime-minutes">00</span> 分</span>
+      <span class="uptime-sep" aria-hidden="true">·</span>
+      <span class="uptime-unit"><span class="uptime-num" id="uptime-seconds">00</span> 秒</span>
+    </span>
+  </div>
   <div class="visit-stats">
     <span class="visit-stat">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -97,9 +157,39 @@
     </span>
     <span class="icp-sep" aria-hidden="true">·</span>
     <span class="icp-item">
-      Powered By <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a>
+      Powered by <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a>
     </span>
   </div>
 </footer>
 
 <script defer src="//stats.web.yjhup.com/js/index.min.js"></script>
+<script>
+  (function () {
+    var START = new Date("2026-08-21T00:00:00+08:00").getTime();
+    var pad = function (n) { return n < 10 ? "0" + n : "" + n; };
+    var set = function (id, value) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+    var tick = function () {
+      var diff = Math.max(0, Date.now() - START);
+      var days = Math.floor(diff / 86400000);
+      diff -= days * 86400000;
+      var hours = Math.floor(diff / 3600000);
+      diff -= hours * 3600000;
+      var minutes = Math.floor(diff / 60000);
+      diff -= minutes * 60000;
+      var seconds = Math.floor(diff / 1000);
+      set("uptime-days", String(days));
+      set("uptime-hours", pad(hours));
+      set("uptime-minutes", pad(minutes));
+      set("uptime-seconds", pad(seconds));
+    };
+    tick();
+    if (!window.__siteUptimeInit) {
+      window.__siteUptimeInit = true;
+      setInterval(tick, 1000);
+      document.addEventListener("swup:contentReplaced", function () { setTimeout(tick, 100); });
+    }
+  })();
+</script>
