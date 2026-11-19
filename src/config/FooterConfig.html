@@ -26,6 +26,7 @@
 		border-radius: 9999px;
 		background: color-mix(in oklch, var(--primary) 6%, transparent);
 		color: var(--content-meta);
+		white-space: nowrap;
 		transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
 	}
 	.visit-stat:hover {
@@ -51,9 +52,16 @@
 		gap: 0.4rem;
 		color: var(--content-meta);
 	}
+	.icp-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		white-space: nowrap;
+	}
 	.icp-line a {
 		color: var(--content-meta);
 		text-decoration: none;
+		white-space: nowrap;
 		border-bottom: 1px dashed color-mix(in oklch, var(--primary) 45%, transparent);
 		transition: color .2s ease, border-color .2s ease;
 	}
@@ -84,11 +92,13 @@
     </span>
   </div>
   <div class="icp-line">
-    <a href="https://icp.gov.moe/?keyword=20262028" target="_blank" rel="noopener noreferrer">萌ICP备20262028号</a>
+    <span class="icp-item">
+      <a href="https://icp.gov.moe/?keyword=20264680" target="_blank" rel="noopener noreferrer">萌ICP备20264680号</a>
+    </span>
     <span class="icp-sep" aria-hidden="true">·</span>
-    <span>Copyright © 2026</span>
-    <span class="icp-sep" aria-hidden="true">·</span>
-    Powered By <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a>
+    <span class="icp-item">
+      Powered By <a href="https://yjhup.com" target="_blank" rel="noopener noreferrer">YJH</a>
+    </span>
   </div>
 </footer>
 
